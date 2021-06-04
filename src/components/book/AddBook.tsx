@@ -2,21 +2,21 @@ import React from 'react';
 import {Plus} from "react-feather";
 import {Col, Row} from "react-bootstrap";
 
-type AddAuthorProps = {
+type AddBookProps = {
     onAddClick: () => void
 }
 
-const AddAuthor:React.FC<AddAuthorProps> = (props) => {
+const AddBook:React.FC<AddBookProps> = (props) => {
     return(
         <Row>
             <Col className='px-4' onClick={props.onAddClick}>
                 <p>
                     <Plus className='mr-2' size={25} color="#144500"/>
-                        Add Author
+                        Add Book
                 </p>
             </Col>
         </Row>
     )
 }
 
-export default AddAuthor;
+export default AddBook;
