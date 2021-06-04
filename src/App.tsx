@@ -4,7 +4,7 @@ import ClientApp from "./ClientApp";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <ClientApp />
     </div>
   );

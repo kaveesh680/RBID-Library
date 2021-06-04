@@ -5,4 +5,7 @@
 @import "./partials/welcome.scss";
 body{
   font-family: 'Raleway', sans-serif;
+  margin-bottom: 300px;
 }
+
+@import "./partials/_authors.scss";
