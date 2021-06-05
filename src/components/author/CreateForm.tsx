@@ -41,21 +41,32 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
                     <Col xs={2} className='text-center mt-1' onClick={onFormClose}>
                         <XCircle />
                     </Col>
+
                 </Row>
+
                 <Row>
                     <Col xs={{span:11,offset:1}} className='pl-1'>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3 pr-3" controlId="formBasicEmail">
                                 <Form.Label className='pl-1'>Name of Author</Form.Label>
                                 <Form.Control type="text"
+                                              spellCheck="false"
+                                              autoComplete="off"
                                               value={authorName ? authorName : ''}
                                               onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                                   handleAuthorNameChange(e.target.value)}/>
                             </Form.Group>
-                            <Button variant="primary" type="submit" className='px-4 py-1 mr-3 float-right'>Create</Button>
+                            <Button className='px-4 py-1 mr-3 float-right'
+                                    variant="primary"
+                                    type="submit"
+                            >
+                                Create
+                            </Button>
                         </Form>
+
                     </Col>
                 </Row>
+
             </Col>
         </Row>
     )

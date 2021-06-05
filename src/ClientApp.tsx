@@ -27,13 +27,33 @@ const ClientApp:React.FC = () => {
         setAuthors(leftAuthors);
     }
 
+    const handleOnAuthorUpdate = (newAuthor:IAuthor) => {
+        if(!authors){
+            return;
+        }
+
+        const allAuthors:IAuthor[] = authors.slice();
+        const updatedAuthors:IAuthor[] = allAuthors.map((author:IAuthor) => {
+           if(author.id === newAuthor.id){
+               return newAuthor;
+           }
+           return author;
+        });
+        setAuthors(updatedAuthors);
+    }
+
     return(
         <>
             <Welcome />
             <Container fluid>
                 <Row>
                     <Books />
-                    <Authors authors={authors} onAuthorAdded={handleOnAuthorAdded} onAuthorDelete={handleOnAuthorDelete}/>
+                    <Authors
+                        authors={authors}
+                        onAuthorAdded={handleOnAuthorAdded}
+                        onAuthorDelete={handleOnAuthorDelete}
+                        onAuthorUpdate={handleOnAuthorUpdate}
+                    />
                 </Row>
             </Container>
         </>

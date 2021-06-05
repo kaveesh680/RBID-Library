@@ -6,11 +6,12 @@ import {IAuthor} from "../../types/LibraryTypes";
 type AuthorsListProps = {
     authors:IAuthor[] | null
     onAuthorDelete:(id:string) => void
+    onAuthorUpdate:(author:IAuthor) => void
 }
 
 const AuthorsList:React.FC<AuthorsListProps> = (props) => {
 
-    const {authors,onAuthorDelete} = props;
+    const {authors,onAuthorDelete, onAuthorUpdate} = props;
 
     if(!authors){
         return <label className='font-italic ml-2 mb-3 empty-label'>No authors listed here.</label>
@@ -26,7 +27,9 @@ const AuthorsList:React.FC<AuthorsListProps> = (props) => {
                                                                      num={index+1}
                                                                      author={author}
                                                                      onAuthorDelete={onAuthorDelete}
-        />)
+                                                                     onAuthorUpdate={onAuthorUpdate}
+            />
+        )
     }
 
     return(

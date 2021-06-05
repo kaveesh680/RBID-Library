@@ -10,11 +10,12 @@ type AuthorsProps = {
     authors:IAuthor[] | null
     onAuthorAdded:(author:IAuthor) => void
     onAuthorDelete:(id:string) => void
+    onAuthorUpdate:(author:IAuthor) => void
 }
 
 const Authors:React.FC<AuthorsProps> = (props) => {
 
-    const {authors, onAuthorAdded, onAuthorDelete} = props;
+    const {authors, onAuthorAdded, onAuthorDelete, onAuthorUpdate} = props;
 
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -30,9 +31,17 @@ const Authors:React.FC<AuthorsProps> = (props) => {
         <Col xs={12} md={6} className='mt-0 pt-0'>
             <Container fluid className='authors'>
                 <AuthorTitle />
-                <AuthorsList authors={authors} onAuthorDelete={onAuthorDelete}/>
+                <AuthorsList
+                    authors={authors}
+                    onAuthorDelete={onAuthorDelete}
+                    onAuthorUpdate={onAuthorUpdate}
+                />
                 <AddAuthor onAddClick={handleOnAddClicked}/>
-                {isFormVisible && <CreateForm onFormClose={handleFormClose} onAuthorAdded={onAuthorAdded}/>}
+                {isFormVisible &&
+                <CreateForm
+                    onFormClose={handleFormClose}
+                    onAuthorAdded={onAuthorAdded}
+                />}
             </Container>
         </Col>
     )
