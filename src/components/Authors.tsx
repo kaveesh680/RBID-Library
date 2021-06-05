@@ -4,12 +4,21 @@ import {Col, Container} from "react-bootstrap";
 import AuthorsList from "./author/AuthorsList";
 import AddAuthor from "./author/AddAuthor";
 import CreateForm from "./author/CreateForm";
+import {IAuthor} from "../types/LibraryTypes";
 
-const Authors:React.FC = () => {
+type AuthorsProps = {
+    authors:IAuthor[] | null
+    onAuthorAdded:(author:IAuthor) => void
+    onAuthorDelete:(id:string) => void
+}
+
+const Authors:React.FC<AuthorsProps> = (props) => {
+
+    const {authors, onAuthorAdded, onAuthorDelete} = props;
 
     const [isFormVisible, setIsFormVisible] = useState(false);
 
-    const handleOnAddClick = () => {
+    const handleOnAddClicked = () => {
         setIsFormVisible(true);
     }
 
@@ -21,9 +30,9 @@ const Authors:React.FC = () => {
         <Col xs={12} md={6} className='mt-0 pt-0'>
             <Container fluid className='authors'>
                 <AuthorTitle />
-                <AuthorsList />
-                <AddAuthor onAddClick={handleOnAddClick}/>
-                {isFormVisible && <CreateForm onFormClose={handleFormClose}/>}
+                <AuthorsList authors={authors} onAuthorDelete={onAuthorDelete}/>
+                <AddAuthor onAddClick={handleOnAddClicked}/>
+                {isFormVisible && <CreateForm onFormClose={handleFormClose} onAuthorAdded={onAuthorAdded}/>}
             </Container>
         </Col>
     )
