@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Edit, Trash2} from "react-feather";
 import {IAuthor, IBook, IBookDetails} from "../../types/LibraryTypes";
-import DeleteValidation from "../validation/DeleteValidation";
+import DeleteValidationBook from "../validation/DeleteValidationBook";
 import UpdateValidationBook from "../validation/UpdateValidationBook";
 
 type BookProps = {
@@ -45,7 +45,7 @@ const Book:React.FC<BookProps> = (props) => {
 
             </li>
 
-            {showDeleteValidation && <DeleteValidation
+            {showDeleteValidation && <DeleteValidationBook
                 onDeleteValidationClose={handleOnDeleteValidationClose}
                 showDeleteValidation={showDeleteValidation}
                 onDelete={() => onBookDelete(id)}

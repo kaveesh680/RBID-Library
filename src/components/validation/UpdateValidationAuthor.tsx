@@ -6,14 +6,16 @@ type UpdateValidationProps = {
     onUpdateValidationClose:() => void
     showUpdateValidation:boolean
     onAuthorUpdate:(author:IAuthor) => void
+    author:string
     id:string
 }
 
 const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
 
-    const {onUpdateValidationClose, showUpdateValidation, onAuthorUpdate, id} = props;
+    const {onUpdateValidationClose, showUpdateValidation, onAuthorUpdate, id, author} = props;
 
-    const [newAuthorName, setNewAuthorName] = useState<string | null>(null);
+    const [newAuthorName, setNewAuthorName] = useState<string | null>(author);
+    const [showValidateText,setShowValidateText] = useState<boolean>(false);
 
     const handleNewAuthorNameChange = (newName:string) => {
         setNewAuthorName(newName);
@@ -23,12 +25,14 @@ const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
         e.preventDefault();
 
         if(!newAuthorName){
+            setShowValidateText(true);
             return;
         }
 
         const newAuthor:IAuthor = {name:newAuthorName,id:id};
         onAuthorUpdate(newAuthor);
-        setNewAuthorName(null);
+        onUpdateValidationClose();
+        setShowValidateText(false);
     }
 
     return(
@@ -44,6 +48,7 @@ const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
                         spellCheck="false"
                         autoComplete="off"
                         value={newAuthorName ? newAuthorName : ''}
+                        placeholder= {(showValidateText && !newAuthorName) ? "Enter Author": ''}
                         onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleNewAuthorNameChange(e.target.value)}
                     />
                 </Form.Group>
@@ -51,7 +56,7 @@ const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
                         <Button variant="secondary" onClick={onUpdateValidationClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={onUpdateValidationClose} type="submit">
+                        <Button variant="primary" type="submit">
                             Save Changes
                         </Button>
                     </Modal.Footer>

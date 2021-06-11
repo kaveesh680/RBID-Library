@@ -14,6 +14,7 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
     const {onFormClose, onAuthorAdded} = props;
 
     const [authorName, setAuthorName] = useState<string | null>(null);
+    const [showValidateText,setShowValidateText] = useState<boolean>(false);
 
     const handleAuthorNameChange = (newName:string) => {
         setAuthorName(newName);
@@ -23,12 +24,14 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
         e.preventDefault();
 
         if(!authorName){
+            setShowValidateText(true);
             return;
         }
 
         const newAuthor: IAuthor = {name:authorName,id:uuid4()};
         onAuthorAdded(newAuthor);
-        setAuthorName(null);
+        onFormClose();
+        setShowValidateText(false);
     }
 
     return(
@@ -53,6 +56,7 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
                                               spellCheck="false"
                                               autoComplete="off"
                                               value={authorName ? authorName : ''}
+                                              placeholder= {(showValidateText && !authorName) ? "Enter Author": ''}
                                               onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                                   handleAuthorNameChange(e.target.value)}/>
                             </Form.Group>

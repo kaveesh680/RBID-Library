@@ -1,19 +1,20 @@
 import React from 'react';
 import Author from "./Author";
 import {Col, Row} from "react-bootstrap";
-import {IAuthor} from "../../types/LibraryTypes";
+import {IAuthor, IBook} from "../../types/LibraryTypes";
 
 type AuthorsListProps = {
     authors:IAuthor[] | null
+    books:IBook[] | null
     onAuthorDelete:(id:string) => void
     onAuthorUpdate:(author:IAuthor) => void
 }
 
 const AuthorsList:React.FC<AuthorsListProps> = (props) => {
 
-    const {authors,onAuthorDelete, onAuthorUpdate} = props;
+    const {authors,onAuthorDelete, onAuthorUpdate, books} = props;
 
-    if(!authors){
+    if(!authors || authors.length === 0){
         return <label className='font-italic ml-2 mb-3 empty-label'>No authors listed here.</label>
     }
 
@@ -26,6 +27,7 @@ const AuthorsList:React.FC<AuthorsListProps> = (props) => {
                                                                      id={author.id}
                                                                      num={index+1}
                                                                      author={author}
+                                                                     books={books}
                                                                      onAuthorDelete={onAuthorDelete}
                                                                      onAuthorUpdate={onAuthorUpdate}
             />

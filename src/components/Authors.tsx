@@ -4,10 +4,11 @@ import {Col, Container} from "react-bootstrap";
 import AuthorsList from "./author/AuthorsList";
 import AddAuthor from "./author/AddAuthor";
 import CreateForm from "./author/CreateForm";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor, IBook} from "../types/LibraryTypes";
 
 type AuthorsProps = {
     authors:IAuthor[] | null
+    books:IBook[] | null
     onAuthorAdded:(author:IAuthor) => void
     onAuthorDelete:(id:string) => void
     onAuthorUpdate:(author:IAuthor) => void
@@ -15,7 +16,7 @@ type AuthorsProps = {
 
 const Authors:React.FC<AuthorsProps> = (props) => {
 
-    const {authors, onAuthorAdded, onAuthorDelete, onAuthorUpdate} = props;
+    const {authors, books, onAuthorAdded, onAuthorDelete, onAuthorUpdate} = props;
 
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -33,6 +34,7 @@ const Authors:React.FC<AuthorsProps> = (props) => {
                 <AuthorTitle />
                 <AuthorsList
                     authors={authors}
+                    books={books}
                     onAuthorDelete={onAuthorDelete}
                     onAuthorUpdate={onAuthorUpdate}
                 />

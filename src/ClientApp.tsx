@@ -89,6 +89,7 @@ const ClientApp:React.FC = () => {
                     />
                     <Authors
                         authors={authors}
+                        books={books}
                         onAuthorAdded={handleOnAuthorAdded}
                         onAuthorDelete={handleOnAuthorDelete}
                         onAuthorUpdate={handleOnAuthorUpdate}

@@ -1,5 +1,5 @@
 export interface IAuthor {
-    name:String,
+    name:string,
     id:string
 }
 
@@ -16,5 +16,5 @@ export interface IBook {
 
 export interface ILabelOption{
     id:string,
-    label:String
+    label:string
 }
