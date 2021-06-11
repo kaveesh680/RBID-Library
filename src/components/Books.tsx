@@ -18,7 +18,7 @@ const Books:React.FC<BooksProps> = (props) => {
 
     const {authors, books, onBookAdded, onBookDelete, onBookUpdate} = props;
 
-    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
 
     const handleOnAddClick = () => {
         setIsFormVisible(true);
@@ -34,7 +34,12 @@ const Books:React.FC<BooksProps> = (props) => {
                 <BookTitle />
                 <BooksList books={books} onBookDelete={onBookDelete} authors={authors} onBookUpdate={onBookUpdate}/>
                 <AddBook onAddClick={handleOnAddClick}/>
-                {isFormVisible && <CreateBook onFormClose={handleFormClose} onBookAdded={onBookAdded} authors={authors}/>}
+                {isFormVisible && <CreateBook
+                                        onFormClose={handleFormClose}
+                                        onBookAdded={onBookAdded}
+                                        authors={authors}
+                                    />
+                }
             </Container>
         </Col>
     )

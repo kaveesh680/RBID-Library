@@ -18,7 +18,7 @@ const Authors:React.FC<AuthorsProps> = (props) => {
 
     const {authors, books, onAuthorAdded, onAuthorDelete, onAuthorUpdate} = props;
 
-    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
 
     const handleOnAddClicked = () => {
         setIsFormVisible(true);

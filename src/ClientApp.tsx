@@ -57,6 +57,27 @@ const ClientApp:React.FC = () => {
            return author;
         });
         setAuthors(updatedAuthors);
+
+        if(books){
+            const allBooks:IBook[] = books.slice();
+            const updatedBooks:IBook[] = allBooks.map((book:IBook) => {
+                if(book.details.author.id === newAuthor.id){
+                    return {
+                        id:book.id,
+                        details:{
+                            name:book.details.name,
+                            author:{
+                                id:newAuthor.id,
+                                name:newAuthor.name
+                            },
+                            isbn:book.details.isbn
+                        }
+                    }
+                }
+                return book;
+            });
+            setBooks(updatedBooks);
+        }
     }
 
     const handleOnBookUpdate = (newBook:IBook) => {
@@ -73,7 +94,7 @@ const ClientApp:React.FC = () => {
         });
         setBooks(updatedBooks);
     }
-
+    console.log(books);
 
     return(
         <>

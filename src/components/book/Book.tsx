@@ -17,8 +17,8 @@ const Book:React.FC<BookProps> = (props) => {
 
     const {id, num, bookDetails, onBookDelete, authors, onBookUpdate} = props;
 
-    const [showDeleteValidation, setShowDeleteValidation] = useState(false);
-    const [showUpdateValidation, setShowUpdateValidation] = useState(false);
+    const [showDeleteValidation, setShowDeleteValidation] = useState<boolean>(false);
+    const [showUpdateValidation, setShowUpdateValidation] = useState<boolean>(false);
 
     const handleOnDeleteValidationClose = () => setShowDeleteValidation(false);
     const handleOnDeleteValidationShow = () => setShowDeleteValidation(true);
@@ -39,7 +39,7 @@ const Book:React.FC<BookProps> = (props) => {
                 <Edit
                     className='float-right pt-1 icons'
                     size={30}
-                    color="green"
+                    color="rgb(221, 211, 24)"
                     onClick={handleOnUpdateValidationShow}
                 />
 

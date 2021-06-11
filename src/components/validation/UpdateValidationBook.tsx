@@ -54,7 +54,17 @@ const UpdateValidationBook:React.FC<UpdateValidationBookProps> = (props) => {
             return;
         }
 
-        const newBook:IBook = {id:id,details:{name:newBookName, author:{id:newAuthor.id,name:newAuthor.name},isbn:newIsbn}}
+        const newBook:IBook = {
+            id:id,
+            details:{
+                name:newBookName,
+                author:{
+                    id:newAuthor.id,
+                    name:newAuthor.name
+                },
+                isbn:newIsbn
+            }
+        }
         onBookUpdate(newBook);
         onUpdateValidationClose();
         setShowValidateText(false);
@@ -74,12 +84,12 @@ const UpdateValidationBook:React.FC<UpdateValidationBookProps> = (props) => {
     return(
         <Modal show={showUpdateValidation} onHide={onUpdateValidationClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Update Author</Modal.Title>
+                <Modal.Title>Update Book Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label className='pl-1'>Name of Book</Form.Label>
+                    <Form.Label className='pl-1'>Title of the Book</Form.Label>
                     <Form.Control
                         type="text"
                         spellCheck="false"

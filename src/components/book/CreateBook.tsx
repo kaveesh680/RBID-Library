@@ -53,7 +53,17 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
             return;
         }
 
-        const newBook:IBook = {id:uuid4(),details:{name:bookName, author:{id:author.id,name:author.name},isbn:isbn}}
+        const newBook:IBook = {
+            id:uuid4(),
+            details:{
+                name:bookName,
+                author:{
+                    id:author.id,
+                    name:author.name
+                },
+                isbn:isbn
+            }
+        }
         onBookAdded(newBook);
         onFormClose();
         setShowValidateText(false);
@@ -104,7 +114,8 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
                                     spellCheck="false"
                                     autoComplete="off"
                                     placeholder= {(showValidateText && !isbn) ? "Enter ISBN": ''}
-                                    onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleOnIsbnChange(e.target.value)}
+                                    onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
+                                        handleOnIsbnChange(e.target.value)}
                                 />
                             </Form.Group>
                             <Row>
@@ -114,10 +125,15 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
                                             options={selectOptions}
                                             isClearable={true}
                                             isSearchable={true}
-                                            onChange={(option:ValueType<ILabelOption, false>) => handleOnAuthorChange(option)}/>
+                                            onChange={(option:ValueType<ILabelOption, false>) =>
+                                                handleOnAuthorChange(option)}/>
                                 </Col>
                             </Row>
-                            <Button variant="primary" className='px-4 py-1 mr-3 float-right' type="submit">Create</Button>
+                            <Button
+                                variant="primary"
+                                className='px-4 py-1 mr-3 float-right'
+                                type="submit">Create
+                            </Button>
                         </Form>
                     </Col>
                 </Row>

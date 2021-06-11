@@ -17,7 +17,10 @@ const Welcome:React.FC = () => {
             </Row>
             <Row>
                 <Col xs={{span:2, offset:10}} className='mt-1 px-0 pl-5' >
-                    <p>photo by Anna Hunko</p>
+                    <p>photo by <a href="https://unsplash.com/photos/ajE5goOGzZc" target="_blank" rel="noreferrer">
+                            Anna Hunko
+                        </a>
+                    </p>
                 </Col>
             </Row>
         </Container>
