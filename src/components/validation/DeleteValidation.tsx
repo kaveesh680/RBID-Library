@@ -4,12 +4,12 @@ import {Button, Modal} from "react-bootstrap";
 type DeleteValidationProps = {
     onDeleteValidationClose:() => void
     showDeleteValidation:boolean
-    onAuthorDelete:() => void
+    onDelete:() => void
 }
 
 const DeleteValidation:React.FC<DeleteValidationProps> = (props) => {
 
-    const {onDeleteValidationClose, showDeleteValidation, onAuthorDelete} = props;
+    const {onDeleteValidationClose, showDeleteValidation, onDelete} = props;
 
     return(
         <Modal show={showDeleteValidation} onHide={onDeleteValidationClose} animation={false}>
@@ -23,7 +23,7 @@ const DeleteValidation:React.FC<DeleteValidationProps> = (props) => {
                 </Button>
                 <Button variant="danger" onClick={() => {
                     onDeleteValidationClose();
-                    onAuthorDelete();
+                    onDelete();
                 }}>
                     Delete
                 </Button>

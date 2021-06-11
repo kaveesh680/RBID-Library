@@ -4,8 +4,19 @@ import BookTitle from "./book/BookTitle";
 import BooksList from "./book/BooksList";
 import AddBook from "./book/AddBook";
 import CreateBook from "./book/CreateBook";
+import {IAuthor, IBook} from "../types/LibraryTypes";
 
-const Books:React.FC = () => {
+type BooksProps = {
+    authors:IAuthor[] | null
+    books:IBook[] | null
+    onBookAdded:(book:IBook) => void
+    onBookDelete:(id:string) => void
+    onBookUpdate:(book:IBook) => void
+}
+
+const Books:React.FC<BooksProps> = (props) => {
+
+    const {authors, books, onBookAdded, onBookDelete, onBookUpdate} = props;
 
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -21,9 +32,9 @@ const Books:React.FC = () => {
         <Col xs={12} md={6} className='mt-0 pt-0'>
             <Container fluid className='books'>
                 <BookTitle />
-                <BooksList />
+                <BooksList books={books} onBookDelete={onBookDelete} authors={authors} onBookUpdate={onBookUpdate}/>
                 <AddBook onAddClick={handleOnAddClick}/>
-                {isFormVisible && <CreateBook onFormClose={handleFormClose}/>}
+                {isFormVisible && <CreateBook onFormClose={handleFormClose} onBookAdded={onBookAdded} authors={authors}/>}
             </Container>
         </Col>
     )

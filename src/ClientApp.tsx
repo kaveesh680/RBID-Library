@@ -4,17 +4,24 @@ import './assets/styles/main.scss';
 import Authors from "./components/Authors";
 import Books from "./components/Books";
 import {Container, Row} from "react-bootstrap";
-import {IAuthor} from "./types/LibraryTypes";
+import {IAuthor, IBook} from "./types/LibraryTypes";
 
 const ClientApp:React.FC = () => {
 
     const [authors, setAuthors] = useState<IAuthor[] | null>(null);
+    const [books, setBooks] = useState<IBook[] | null>(null);
 
     const handleOnAuthorAdded = (newAuthor:IAuthor) => {
 
         const allAuthors:IAuthor[] = authors ? authors.slice() : [];
         allAuthors.push(newAuthor);
         setAuthors(allAuthors);
+    }
+
+    const handleOnBookAdded = (newBook:IBook) => {
+        const allBooks:IBook[] = books ? books.slice() : [];
+        allBooks.push(newBook);
+        setBooks(allBooks);
     }
 
     const handleOnAuthorDelete = (id:string) => {
@@ -25,6 +32,16 @@ const ClientApp:React.FC = () => {
         const allAuthors:IAuthor[] = authors.slice();
         const leftAuthors:IAuthor[] = allAuthors.filter((author:IAuthor) => author.id !== id);
         setAuthors(leftAuthors);
+    }
+
+    const handleOnBookDelete = (id:string) => {
+        if(!books){
+            return;
+        }
+
+        const allBooks:IBook[] = books.slice();
+        const leftBooks:IBook[] = allBooks.filter((book:IBook) => book.id !== id);
+        setBooks(leftBooks);
     }
 
     const handleOnAuthorUpdate = (newAuthor:IAuthor) => {
@@ -42,12 +59,34 @@ const ClientApp:React.FC = () => {
         setAuthors(updatedAuthors);
     }
 
+    const handleOnBookUpdate = (newBook:IBook) => {
+        if(!books){
+            return;
+        }
+
+        const allBooks:IBook[] = books.slice();
+        const updatedBooks:IBook[] = allBooks.map((book:IBook) => {
+            if(book.id === newBook.id){
+                return newBook;
+            }
+            return book;
+        });
+        setBooks(updatedBooks);
+    }
+
+
     return(
         <>
             <Welcome />
             <Container fluid>
                 <Row>
-                    <Books />
+                    <Books
+                        books={books}
+                        authors={authors}
+                        onBookAdded={handleOnBookAdded}
+                        onBookDelete={handleOnBookDelete}
+                        onBookUpdate={handleOnBookUpdate}
+                    />
                     <Authors
                         authors={authors}
                         onAuthorAdded={handleOnAuthorAdded}

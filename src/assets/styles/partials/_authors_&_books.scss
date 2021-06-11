@@ -4,6 +4,35 @@ $form-title-color:#33393f;
 $form-input-border-color:#9A9A9A;
 $form-label-color:#5F5F5F;
 
+@mixin theme(){
+  .form-label{
+    font-size: 0.7em;
+    color: $form-label-color;
+    font-weight: 600;
+  }
+  .form-control{
+    border-radius: 0;
+    border: 2px solid $form-input-border-color;
+    font-weight: 600;
+  }
+  .btn{
+    border-radius: 7px;
+  }
+
+  .css-yk16xz-control{
+    border-radius: 0;
+    border: 2px solid $form-input-border-color;
+  }
+
+  .validation{
+    color: red;
+    font-size:0.9em;
+  }
+
+  input::placeholder {
+    color: red;
+  }
+}
 
 .authors, .books{
   min-height: 50vh;
@@ -57,22 +86,9 @@ $form-label-color:#5F5F5F;
     font-weight: 400;
   }
 
-  .form-label{
-    font-size: 0.7em;
-    color: $form-label-color;
-    font-weight: 600;
-  }
-  .form-control{
-    border-radius: 0;
-    border: 2px solid $form-input-border-color;
-    font-weight: 600;
-  }
-  .btn{
-    border-radius: 7px;
-  }
+  @include theme;
 
-  .css-yk16xz-control{
-    border-radius: 0;
-    border: 2px solid $form-input-border-color;
-  }
+}
+.modal-body{
+  @include theme;
 }

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Edit, Trash2} from "react-feather";
 import {IAuthor} from "../../types/LibraryTypes";
 import DeleteValidation from "../validation/DeleteValidation";
-import UpdateValidation from "../validation/UpdateValidation";
+import UpdateValidationAuthor from "../validation/UpdateValidationAuthor";
 
 type AuthorProps = {
     num:number
@@ -42,9 +42,9 @@ const Author:React.FC<AuthorProps> = (props) => {
             <DeleteValidation
                 onDeleteValidationClose={handleOnDeleteValidationClose}
                 showDeleteValidation={showDeleteValidation}
-                onAuthorDelete={() => onAuthorDelete(id)}
+                onDelete={() => onAuthorDelete(id)}
             />
-            <UpdateValidation
+            <UpdateValidationAuthor
                 onUpdateValidationClose={handleOnUpdateValidationClose}
                 showUpdateValidation={showUpdateValidation}
                 onAuthorUpdate={onAuthorUpdate}

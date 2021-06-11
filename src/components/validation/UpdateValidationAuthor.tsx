@@ -9,7 +9,7 @@ type UpdateValidationProps = {
     id:string
 }
 
-const UpdateValidation:React.FC<UpdateValidationProps> = (props) => {
+const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
 
     const {onUpdateValidationClose, showUpdateValidation, onAuthorUpdate, id} = props;
 
@@ -62,4 +62,4 @@ const UpdateValidation:React.FC<UpdateValidationProps> = (props) => {
     )
 }
 
-export default UpdateValidation;
+export default UpdateValidationAuthor;
