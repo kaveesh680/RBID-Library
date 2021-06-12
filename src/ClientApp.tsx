@@ -94,7 +94,6 @@ const ClientApp:React.FC = () => {
         });
         setBooks(updatedBooks);
     }
-    console.log(books);
 
     return(
         <>

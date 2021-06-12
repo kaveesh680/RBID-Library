@@ -132,22 +132,23 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
                                 </FormControl.Feedback>
                             </Form.Group>
                             <Row>
-                                <Col xs={12} className=''>
+                                <Col xs={12}>
                                     <Form.Label className='pl-1'>Author</Form.Label>
-                                    <Select className='pr-3 mb-3'
+                                    <Select className='pr-3 mb-0'
                                             options={selectOptions}
                                             isClearable
                                             isSearchable
                                             styles={customStyles}
                                             onChange={(option:ValueType<ILabelOption, false>) =>
                                                 handleOnAuthorChange(option)}/>
+                                    {selectorBorderColor === '#f80046' &&
+                                    <small className="text-danger font-weight-bold">Please select author</small>}
                                 </Col>
                             </Row>
-                            {selectorBorderColor === '#f80046' &&
-                            <small className="text-danger font-weight-bold">Please select author</small>}
+
                             <Button
                                 variant="primary"
-                                className='px-4 py-1 mr-3 float-right'
+                                className='px-4 py-1 mr-3 float-right mt-3'
                                 type="submit">Create
                             </Button>
                         </Form>

@@ -7,7 +7,7 @@ import UpdateValidationAuthor from "../validation/UpdateValidationAuthor";
 type AuthorProps = {
     num:number
     author:IAuthor,
-    books:IBook[] |null
+    books:IBook[] | null
     id:string
     onAuthorDelete:(id:string) => void
     onAuthorUpdate:(author:IAuthor) => void
@@ -20,7 +20,7 @@ const Author:React.FC<AuthorProps> = (props) => {
     const [showDeleteValidation, setShowDeleteValidation] = useState<boolean>(false);
     const [showUpdateValidation, setShowUpdateValidation] = useState<boolean>(false);
     const [isAssignToABook, setIsAssignToABook] = useState<boolean>(false);
-    const [assignBookName, setAssignBookName] = useState<string | null>(null);
+    const [assignBookNames, setAssignBookNames] = useState<string[] | null>(null);
 
     const handleOnDeleteValidationClose = () => setShowDeleteValidation(false);
 
@@ -28,17 +28,26 @@ const Author:React.FC<AuthorProps> = (props) => {
 
         setShowDeleteValidation(true);
 
-        if(!books){
+        if(!books || books === []){
+            setIsAssignToABook(false);
             return;
         }
-
+        let count:number = 0;
+        const assignBooks:string[] = [];
         books.forEach((book:IBook) => {
             if(book.details.author.id === id){
                 setIsAssignToABook(true);
-                setAssignBookName(book.details.name);
+                count +=1;
+                assignBooks.push(book.details.name)
             }
         });
+        if(count === 0){
+            setIsAssignToABook(false);
+        }else{
+            setAssignBookNames(assignBooks);
+        }
     }
+
 
     const handleOnUpdateValidationClose = () => setShowUpdateValidation(false);
     const handleOnUpdateValidationShow = () => setShowUpdateValidation(true);
@@ -61,9 +70,9 @@ const Author:React.FC<AuthorProps> = (props) => {
                 onDeleteValidationClose={handleOnDeleteValidationClose}
                 showDeleteValidation={showDeleteValidation}
                 onDelete={() => onAuthorDelete(id)}
-                isAssignToABook={isAssignToABook}
-                author={author.name}
-                assignBook={assignBookName}
+                isAssignToABook={isAssignToABook ? isAssignToABook:false}
+                author={author.name ? author.name:''}
+                assignBooks={assignBookNames ? assignBookNames : []}
             />}
 
             {showUpdateValidation && <UpdateValidationAuthor
