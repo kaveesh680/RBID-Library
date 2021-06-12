@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from 'react';
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
 import {IAuthor} from "../../types/LibraryTypes";
 import { v4 as uuid4 } from 'uuid';
@@ -14,7 +14,7 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
     const {onFormClose, onAuthorAdded} = props;
 
     const [authorName, setAuthorName] = useState<string | null>(null);
-    const [showValidateText,setShowValidateText] = useState<boolean>(false);
+    const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
 
     const handleAuthorNameChange = (newName:string) => {
         setAuthorName(newName);
@@ -23,15 +23,14 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
 
-        if(!authorName){
-            setShowValidateText(true);
+        if(authorName === '' || authorName === null){
+            setIsFormValidate(true);
             return;
         }
 
         const newAuthor: IAuthor = {name:authorName,id:uuid4()};
         onAuthorAdded(newAuthor);
         onFormClose();
-        setShowValidateText(false);
     }
 
     return(
@@ -49,16 +48,19 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
 
                 <Row>
                     <Col xs={{span:11,offset:1}} className='pl-1'>
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit} validated={isFormValidate} noValidate>
                             <Form.Group className="mb-3 pr-3" controlId="formBasicEmail">
                                 <Form.Label className='pl-1'>Name of Author</Form.Label>
                                 <Form.Control type="text"
+                                              required
                                               spellCheck="false"
                                               autoComplete="off"
                                               value={authorName ? authorName : ''}
-                                              placeholder= {(showValidateText && !authorName) ? "Enter Author": ''}
                                               onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                                   handleAuthorNameChange(e.target.value)}/>
+                                <FormControl.Feedback type="invalid">
+                                    <p className="font-weight-bold">Please enter author name</p>
+                                </FormControl.Feedback>
                             </Form.Group>
                             <Button className='px-4 py-1 mr-3 float-right'
                                     variant="primary"

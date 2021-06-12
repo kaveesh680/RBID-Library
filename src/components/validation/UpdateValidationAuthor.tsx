@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from 'react';
-import {Button, Form, Modal} from "react-bootstrap";
+import {Button, Form, FormControl, Modal} from "react-bootstrap";
 import {IAuthor} from "../../types/LibraryTypes";
 
 type UpdateValidationProps = {
@@ -15,7 +15,7 @@ const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
     const {onUpdateValidationClose, showUpdateValidation, onAuthorUpdate, id, author} = props;
 
     const [newAuthorName, setNewAuthorName] = useState<string | null>(author);
-    const [showValidateText,setShowValidateText] = useState<boolean>(false);
+    const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
 
     const handleNewAuthorNameChange = (newName:string) => {
         setNewAuthorName(newName);
@@ -24,15 +24,14 @@ const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
 
-        if(!newAuthorName){
-            setShowValidateText(true);
+        if(newAuthorName === '' || newAuthorName === null){
+            setIsFormValidate(true);
             return;
         }
 
         const newAuthor:IAuthor = {name:newAuthorName,id:id};
         onAuthorUpdate(newAuthor);
         onUpdateValidationClose();
-        setShowValidateText(false);
     }
 
     return(
@@ -41,17 +40,22 @@ const UpdateValidationAuthor:React.FC<UpdateValidationProps> = (props) => {
                 <Modal.Title>Update Author</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit}><Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label className='pl-1'>Name of Author</Form.Label>
-                    <Form.Control
-                        type="text"
-                        spellCheck="false"
-                        autoComplete="off"
-                        value={newAuthorName ? newAuthorName : ''}
-                        placeholder= {(showValidateText && !newAuthorName) ? "Enter Author": ''}
-                        onChange={(e:React.ChangeEvent<HTMLInputElement>) => handleNewAuthorNameChange(e.target.value)}
-                    />
-                </Form.Group>
+                <Form onSubmit={handleSubmit} validated={isFormValidate} noValidate>
+                    <Form.Group className="mb-3" >
+                        <Form.Label className='pl-1'>Name of Author</Form.Label>
+                        <Form.Control
+                            type="text"
+                            required
+                            spellCheck="false"
+                            autoComplete="off"
+                            value={newAuthorName ? newAuthorName : ''}
+                            onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
+                                handleNewAuthorNameChange(e.target.value)}
+                        />
+                        <FormControl.Feedback type="invalid">
+                            <p className="font-weight-bold">Please enter author name</p>
+                        </FormControl.Feedback>
+                    </Form.Group>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={onUpdateValidationClose}>
                             Close

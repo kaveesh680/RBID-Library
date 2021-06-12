@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from 'react';
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
 import Select, {ValueType} from 'react-select';
 import {IAuthor, IBook, ILabelOption} from "../../types/LibraryTypes";
@@ -18,19 +18,35 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
     const [bookName, setBookName] = useState<string | null>(null);
     const [author, setAuthor] = useState<IAuthor | null>(null);
     const [isbn, setIsbn] = useState<string | null>(null);
-    const [showValidateText,setShowValidateText] = useState<boolean>(false);
+    const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
+    const [selectorBorderColor, setSelectorBorderColor] = useState<string>('#959595');
+    const [isSelectorValidate, setIsSelectorValidate] = useState<boolean>(false);
+
+    const customStyles = {
+        control: (provided: any, state: any) => ({
+            ...provided,
+            border: `2px solid ${selectorBorderColor}`,
+            borderRadius: '0px'
+        }),
+    }
 
     const handleOnBookNameChange = (newName:string) => {
         setBookName(newName);
     }
 
     const handleOnAuthorChange = (option:ValueType<ILabelOption, false>) => {
-        if(!option){
-            return;
+        if (option) {
+            const bookAuthor:IAuthor = {name:option.label, id:option.id}
+            setAuthor(bookAuthor);
+            if (isSelectorValidate) {
+                setSelectorBorderColor('#6AB867');
+            }
+        } else {
+            setAuthor(null);
+            if (isSelectorValidate) {
+                setSelectorBorderColor('#f80046');
+            }
         }
-        const bookAuthor:IAuthor = {name:option.label, id:option.id}
-        setAuthor(bookAuthor);
-
     }
 
     const handleOnIsbnChange = (isbn: string) => {
@@ -39,17 +55,10 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
 
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
-
-        if(!bookName){
-            setShowValidateText(true);
-            return;
-        }
-        if(!isbn){
-            setShowValidateText(true);
-            return;
-        }
-
-        if(!author){
+        (author === null) ? setSelectorBorderColor('#f80046') : setSelectorBorderColor('#6AB867');
+        if(!bookName || !isbn || bookName === '' || isbn === '' || !author){
+            setIsFormValidate(true);
+            setIsSelectorValidate(true);
             return;
         }
 
@@ -66,7 +75,6 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
         }
         onBookAdded(newBook);
         onFormClose();
-        setShowValidateText(false);
     }
 
 
@@ -93,42 +101,50 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
                 </Row>
                 <Row>
                     <Col xs={{span:11,offset:1}} className='pl-1'>
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit} validated={isFormValidate} noValidate>
                             <Form.Group className="mb-3 pr-3" controlId="formBasicEmail">
                                 <Form.Label className='pl-1'>Title of the Book</Form.Label>
                                 <Form.Control
                                     type="text"
+                                    required
                                     value={bookName ? bookName :''}
                                     spellCheck="false"
                                     autoComplete="off"
-                                    placeholder= {(showValidateText && !bookName) ? "Enter Title Name": ''}
                                     onChange = {(e:React.ChangeEvent<HTMLInputElement>) =>
                                         handleOnBookNameChange(e.target.value)}/>
-
+                                <FormControl.Feedback type="invalid">
+                                    <p className="font-weight-bold">Please enter book title</p>
+                                </FormControl.Feedback>
                             </Form.Group>
-                            <Form.Group className="mb-3 pr-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3 pr-3">
                                 <Form.Label className='pl-1'>ISBN</Form.Label>
                                 <Form.Control
                                     type="text"
+                                    required
                                     value={isbn ? isbn : ''}
                                     spellCheck="false"
                                     autoComplete="off"
-                                    placeholder= {(showValidateText && !isbn) ? "Enter ISBN": ''}
                                     onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                         handleOnIsbnChange(e.target.value)}
                                 />
+                                <FormControl.Feedback type="invalid">
+                                    <p className="font-weight-bold">Please enter isbn</p>
+                                </FormControl.Feedback>
                             </Form.Group>
                             <Row>
                                 <Col xs={12} className=''>
                                     <Form.Label className='pl-1'>Author</Form.Label>
                                     <Select className='pr-3 mb-3'
                                             options={selectOptions}
-                                            isClearable={true}
-                                            isSearchable={true}
+                                            isClearable
+                                            isSearchable
+                                            styles={customStyles}
                                             onChange={(option:ValueType<ILabelOption, false>) =>
                                                 handleOnAuthorChange(option)}/>
                                 </Col>
                             </Row>
+                            {selectorBorderColor === '#f80046' &&
+                            <small className="text-danger font-weight-bold">Please select author</small>}
                             <Button
                                 variant="primary"
                                 className='px-4 py-1 mr-3 float-right'
