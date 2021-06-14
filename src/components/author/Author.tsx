@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Edit, Trash2} from "react-feather";
 import {IAuthor, IBook} from "../../types/LibraryTypes";
 import DeleteValidationAuthor from "../validation/DeleteValidationAuthor";
-import UpdateValidationAuthor from "../validation/UpdateValidationAuthor";
 
 type AuthorProps = {
     num:number
@@ -11,14 +10,14 @@ type AuthorProps = {
     id:string
     onAuthorDelete:(id:string) => void
     onAuthorUpdate:(author:IAuthor) => void
+    onEditButtonClicked:(authorName:string,id:string) => void
 }
 
 const Author:React.FC<AuthorProps> = (props) => {
 
-    const {author, num, id, onAuthorDelete, onAuthorUpdate, books} = props;
+    const {author, num, id, onAuthorDelete, books, onEditButtonClicked} = props;
 
     const [showDeleteValidation, setShowDeleteValidation] = useState<boolean>(false);
-    const [showUpdateValidation, setShowUpdateValidation] = useState<boolean>(false);
     const [isAssignToABook, setIsAssignToABook] = useState<boolean>(false);
     const [assignBookNames, setAssignBookNames] = useState<string[] | null>(null);
 
@@ -48,10 +47,6 @@ const Author:React.FC<AuthorProps> = (props) => {
         }
     }
 
-
-    const handleOnUpdateValidationClose = () => setShowUpdateValidation(false);
-    const handleOnUpdateValidationShow = () => setShowUpdateValidation(true);
-
     return(
         <>
             <li className='align-baseline pt-2 pb-3'>{num}. {author.name}
@@ -63,7 +58,7 @@ const Author:React.FC<AuthorProps> = (props) => {
                 <Edit className='float-right pt-1 icons'
                       size={30}
                       color="rgb(221, 211, 24)"
-                      onClick={handleOnUpdateValidationShow}
+                      onClick={() => onEditButtonClicked(author.name,id)}
                 />
             </li>
             {showDeleteValidation && <DeleteValidationAuthor
@@ -73,14 +68,6 @@ const Author:React.FC<AuthorProps> = (props) => {
                 isAssignToABook={isAssignToABook ? isAssignToABook:false}
                 author={author.name ? author.name:''}
                 assignBooks={assignBookNames ? assignBookNames : []}
-            />}
-
-            {showUpdateValidation && <UpdateValidationAuthor
-                onUpdateValidationClose={handleOnUpdateValidationClose}
-                showUpdateValidation={showUpdateValidation}
-                onAuthorUpdate={onAuthorUpdate}
-                author={author.name}
-                id={id}
             />}
 
         </>

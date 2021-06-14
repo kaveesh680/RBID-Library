@@ -1,18 +1,19 @@
 import React from 'react';
 import Book from "./Book";
 import {Col, Row} from "react-bootstrap";
-import {IAuthor, IBook} from "../../types/LibraryTypes";
+import {IAuthor, IBook, IBookDetails} from "../../types/LibraryTypes";
 
 type BooksListProps = {
     books:IBook[] | null
     onBookDelete:(id:string) => void
     authors:IAuthor[] | null
     onBookUpdate:(book:IBook) => void
+    onEditButtonClicked:(bookDetails:IBookDetails,id:string) => void
 }
 
 const BooksList:React.FC<BooksListProps> = (props) => {
 
-    const {books, onBookDelete, authors, onBookUpdate} = props;
+    const {books, onBookDelete, authors, onBookUpdate, onEditButtonClicked} = props;
 
 
 
@@ -32,6 +33,7 @@ const BooksList:React.FC<BooksListProps> = (props) => {
                                                              onBookDelete={onBookDelete}
                                                              authors={authors}
                                                              onBookUpdate={onBookUpdate}
+                                                             onEditButtonClicked={onEditButtonClicked}
             />
         )
     }

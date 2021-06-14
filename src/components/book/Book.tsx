@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {Edit, Trash2} from "react-feather";
 import {IAuthor, IBook, IBookDetails} from "../../types/LibraryTypes";
 import DeleteValidationBook from "../validation/DeleteValidationBook";
-import UpdateValidationBook from "../validation/UpdateValidationBook";
 
 type BookProps = {
     id:string
@@ -11,20 +10,18 @@ type BookProps = {
     onBookDelete:(id:string) => void
     authors:IAuthor[] | null
     onBookUpdate:(book:IBook) => void
+    onEditButtonClicked:(bookDetails:IBookDetails,id:string) => void
 }
 
 const Book:React.FC<BookProps> = (props) => {
 
-    const {id, num, bookDetails, onBookDelete, authors, onBookUpdate} = props;
+    const {id, num, bookDetails, onBookDelete, onEditButtonClicked} = props;
 
     const [showDeleteValidation, setShowDeleteValidation] = useState<boolean>(false);
-    const [showUpdateValidation, setShowUpdateValidation] = useState<boolean>(false);
+    // const [showUpdateValidation, setShowUpdateValidation] = useState<boolean>(false);
 
     const handleOnDeleteValidationClose = () => setShowDeleteValidation(false);
     const handleOnDeleteValidationShow = () => setShowDeleteValidation(true);
-
-    const handleOnUpdateValidationClose = () => setShowUpdateValidation(false);
-    const handleOnUpdateValidationShow = () => setShowUpdateValidation(true);
 
     return(
         <>
@@ -40,7 +37,7 @@ const Book:React.FC<BookProps> = (props) => {
                     className='float-right pt-1 icons'
                     size={30}
                     color="rgb(221, 211, 24)"
-                    onClick={handleOnUpdateValidationShow}
+                    onClick={() => onEditButtonClicked(bookDetails,id)}
                 />
 
             </li>
@@ -49,15 +46,6 @@ const Book:React.FC<BookProps> = (props) => {
                 onDeleteValidationClose={handleOnDeleteValidationClose}
                 showDeleteValidation={showDeleteValidation}
                 onDelete={() => onBookDelete(id)}
-            />}
-
-            {showUpdateValidation && <UpdateValidationBook
-                onUpdateValidationClose={handleOnUpdateValidationClose}
-                showUpdateValidation={showUpdateValidation}
-                onBookUpdate={onBookUpdate}
-                id={id}
-                authors={authors}
-                bookDetails={bookDetails}
             />}
 
         </>

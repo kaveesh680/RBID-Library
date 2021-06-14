@@ -8,11 +8,12 @@ type AuthorsListProps = {
     books:IBook[] | null
     onAuthorDelete:(id:string) => void
     onAuthorUpdate:(author:IAuthor) => void
+    onEditButtonClicked:(authorName:string,id:string) => void
 }
 
 const AuthorsList:React.FC<AuthorsListProps> = (props) => {
 
-    const {authors,onAuthorDelete, onAuthorUpdate, books} = props;
+    const {authors,onAuthorDelete, onAuthorUpdate, books, onEditButtonClicked} = props;
 
     if(!authors || authors.length === 0){
         return <label className='font-italic ml-2 mb-3 empty-label'>No authors listed here.</label>
@@ -30,6 +31,7 @@ const AuthorsList:React.FC<AuthorsListProps> = (props) => {
                                                                      books={books}
                                                                      onAuthorDelete={onAuthorDelete}
                                                                      onAuthorUpdate={onAuthorUpdate}
+                                                                     onEditButtonClicked={onEditButtonClicked}
             />
         )
     }
