@@ -26,6 +26,7 @@ const Authors:React.FC<AuthorsProps> = (props) => {
 
     const handleOnAddClicked = () => {
         setIsFormVisible(true);
+        setIsUpdateFormVisible(false);
     }
 
     const handleFormClose = () => {

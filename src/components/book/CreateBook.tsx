@@ -4,13 +4,15 @@ import {XCircle} from "react-feather";
 import Select, {ValueType} from 'react-select';
 import {IAuthor, IBook, ILabelOption} from "../../types/LibraryTypes";
 import { v4 as uuid4 } from 'uuid';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type CreateBookProps = {
     onFormClose:() => void
     authors:IAuthor[] | null
     onBookAdded:(book:IBook) => void
 }
-
+toast.configure();
 const CreateBook:React.FC<CreateBookProps> = (props) => {
 
     const {onFormClose, authors, onBookAdded} = props;
@@ -21,6 +23,11 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
     const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
     const [selectorBorderColor, setSelectorBorderColor] = useState<string>('#959595');
     const [isSelectorValidate, setIsSelectorValidate] = useState<boolean>(false);
+
+    const notify = () => toast.success("Book Successfully Added!",{
+        position: toast.POSITION.BOTTOM_CENTER,
+        hideProgressBar:true
+    });
 
     const customStyles = {
         control: (provided: any, state: any) => ({
@@ -75,6 +82,7 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
         }
         onBookAdded(newBook);
         onFormClose();
+        notify();
     }
 
 

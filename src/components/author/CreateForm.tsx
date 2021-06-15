@@ -3,6 +3,8 @@ import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
 import {IAuthor} from "../../types/LibraryTypes";
 import { v4 as uuid4 } from 'uuid';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type CreateFormProps = {
     onFormClose: () => void
@@ -15,6 +17,11 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
 
     const [authorName, setAuthorName] = useState<string | null>(null);
     const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
+
+    const notify = () => toast.success("Author Successfully Added!",{
+        position: toast.POSITION.BOTTOM_CENTER,
+        hideProgressBar:true
+    });
 
     const handleAuthorNameChange = (newName:string) => {
         setAuthorName(newName);
@@ -31,6 +38,7 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
         const newAuthor: IAuthor = {name:authorName,id:uuid4()};
         onAuthorAdded(newAuthor);
         onFormClose();
+        notify();
     }
 
     return(

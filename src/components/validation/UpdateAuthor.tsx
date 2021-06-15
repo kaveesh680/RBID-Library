@@ -2,6 +2,9 @@ import React, {FormEvent, useState} from 'react';
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {IAuthor} from "../../types/LibraryTypes";
 import {XCircle} from "react-feather";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 type UpdateAuthorProps = {
     onFormClose:() => void
@@ -17,24 +20,29 @@ const UpdateAuthor:React.FC<UpdateAuthorProps> = (props) => {
     const [newAuthorName, setNewAuthorName] = useState<string | null>(author);
     const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
 
+    const notify = () => toast.success("Author Successfully Updated!",{
+        position: toast.POSITION.BOTTOM_CENTER,
+        hideProgressBar:true
+    });
+
     const handleNewAuthorNameChange = (newName:string) => {
         setNewAuthorName(newName);
     }
 
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
-
         if(newAuthorName === '' || newAuthorName === null){
             setIsFormValidate(true);
             return;
         }
-        if(!id){
+        if(!id || author === newAuthorName){
             return;
         }
 
         const newAuthor:IAuthor = {name:newAuthorName,id:id};
         onAuthorUpdate(newAuthor);
         onFormClose();
+        notify();
     }
 
     return(
@@ -42,7 +50,7 @@ const UpdateAuthor:React.FC<UpdateAuthorProps> = (props) => {
             <Col md={9} className='px-4 author-form'>
                 <Row className='mb-3'>
                     <Col xs={10}>
-                        <h3>Create Author</h3>
+                        <h3>Update Author</h3>
                     </Col>
                     <Col xs={2} className='text-center mt-1' onClick={onFormClose}>
                         <XCircle />
@@ -70,8 +78,9 @@ const UpdateAuthor:React.FC<UpdateAuthorProps> = (props) => {
                                     variant="primary"
                                     type="submit"
                             >
-                                Create
+                                Update
                             </Button>
+
                         </Form>
 
                     </Col>

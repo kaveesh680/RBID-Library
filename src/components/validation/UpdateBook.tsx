@@ -3,6 +3,9 @@ import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {IAuthor, IBook, IBookDetails, ILabelOption} from "../../types/LibraryTypes";
 import Select, {ValueType} from "react-select";
 import {XCircle} from "react-feather";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 type UpdateBookProps = {
     onFormClose:() => void
@@ -22,6 +25,11 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
     const [isFormValidate,setIsFormValidate] = useState<boolean>(false);
     const [selectorBorderColor, setSelectorBorderColor] = useState<string>('#959595');
     const [isSelectorValidate, setIsSelectorValidate] = useState<boolean>(false);
+
+    const notify = () => toast.success("Book Successfully Updated!",{
+        position: toast.POSITION.BOTTOM_CENTER,
+        hideProgressBar:true
+    });
 
     const customStyles = {
         control: (provided: any, state: any) => ({
@@ -81,6 +89,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
         }
         onBookUpdate(newBook);
         onFormClose();
+        notify();
     }
 
 
@@ -99,7 +108,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
             <Col md={9} className='px-4 book-form'>
                 <Row className='mb-3'>
                     <Col xs={10}>
-                        <h3>Create Book</h3>
+                        <h3>Update Book</h3>
                     </Col>
                     <Col xs={2} className='text-center mt-1' onClick={onFormClose}>
                         <XCircle />
@@ -159,7 +168,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                             <Button
                                 variant="primary"
                                 className='px-4 py-1 mr-3 float-right mt-3'
-                                type="submit">Create
+                                type="submit">Update
                             </Button>
                         </Form>
                     </Col>

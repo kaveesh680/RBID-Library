@@ -26,6 +26,7 @@ const Books:React.FC<BooksProps> = (props) => {
 
     const handleOnAddClick = () => {
         setIsFormVisible(true);
+        setIsUpdateFormVisible(false);
     }
 
     const handleFormClose = () => {

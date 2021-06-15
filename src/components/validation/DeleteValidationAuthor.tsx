@@ -1,5 +1,7 @@
 import React from 'react';
 import {Button, Modal} from "react-bootstrap";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type DeleteValidationAuthorProps = {
     onDeleteValidationClose:() => void
@@ -13,6 +15,11 @@ type DeleteValidationAuthorProps = {
 const DeleteValidationAuthor:React.FC<DeleteValidationAuthorProps> = (props) => {
 
     const {onDeleteValidationClose, showDeleteValidation, onDelete, assignBooks, isAssignToABook, author} = props;
+
+    const notify = () => toast.error("Author Deleted!",{
+        position: toast.POSITION.BOTTOM_CENTER,
+        hideProgressBar:true
+    });
 
     return(
         <Modal show={showDeleteValidation} onHide={onDeleteValidationClose} animation={false}>
@@ -30,6 +37,7 @@ const DeleteValidationAuthor:React.FC<DeleteValidationAuthorProps> = (props) => 
                 <Button variant="danger" onClick={() => {
                     onDeleteValidationClose();
                     onDelete();
+                    notify();
                 }}>
                     Delete
                 </Button>
