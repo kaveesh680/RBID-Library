@@ -48,16 +48,16 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
                     <Col xs={10}>
                         <h3>Create Author</h3>
                     </Col>
-                    <Col xs={2} className='text-center mt-1' onClick={onFormClose}>
+                    <Col xs={2} className='mt-1 text-md-center text-right' onClick={onFormClose}>
                         <XCircle />
                     </Col>
 
                 </Row>
 
                 <Row>
-                    <Col xs={{span:11,offset:1}} className='pl-1'>
+                    <Col md={{span:11,offset:1}} xs={12} className='pl-md-1'>
                         <Form onSubmit={handleSubmit} validated={isFormValidate} noValidate>
-                            <Form.Group className="mb-3 pr-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3 pr-md-3" controlId="formBasicEmail">
                                 <Form.Label className='pl-1'>Name of Author</Form.Label>
                                 <Form.Control type="text"
                                               required
@@ -70,7 +70,7 @@ const CreateForm:React.FC<CreateFormProps> = (props) => {
                                     <p className="font-weight-bold">Please enter author name</p>
                                 </FormControl.Feedback>
                             </Form.Group>
-                            <Button className='px-4 py-1 mr-3 float-right'
+                            <Button className='px-4 py-1 mr-md-3 float-right'
                                     variant="primary"
                                     type="submit"
                             >

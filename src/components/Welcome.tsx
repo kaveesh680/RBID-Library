@@ -16,7 +16,7 @@ const Welcome:React.FC = () => {
                 </Col>
             </Row>
             <Row>
-                <Col md={{span:2, offset:10}} xs={12} className='mt-1 px-0 pl-5 text-center' >
+                <Col lg={{span:2, offset:10}} xs={12} className='mt-1 px-0 pl-lg-5 text-center' >
                     <p>photo by <a href="https://unsplash.com/photos/ajE5goOGzZc" target="_blank" rel="noreferrer">
                             Anna Hunko
                         </a>

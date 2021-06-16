@@ -110,14 +110,14 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                     <Col xs={10}>
                         <h3>Update Book</h3>
                     </Col>
-                    <Col xs={2} className='text-center mt-1' onClick={onFormClose}>
+                    <Col xs={2} className='mt-1 text-md-center text-right' onClick={onFormClose}>
                         <XCircle />
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={{span:11,offset:1}} className='pl-1'>
+                    <Col md={{span:11,offset:1}} xs={12} className='pl-md-1'>
                         <Form onSubmit={handleSubmit} validated={isFormValidate} noValidate>
-                            <Form.Group className="mb-3 pr-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3 pr-md-3" controlId="formBasicEmail">
                                 <Form.Label className='pl-1'>Title of the Book</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -131,7 +131,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                                     <p className="font-weight-bold">Please enter book title</p>
                                 </FormControl.Feedback>
                             </Form.Group>
-                            <Form.Group className="mb-3 pr-3">
+                            <Form.Group className="mb-3 pr-md-3">
                                 <Form.Label className='pl-1'>ISBN</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -149,7 +149,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                             <Row>
                                 <Col xs={12}>
                                     <Form.Label className='pl-1'>Author</Form.Label>
-                                    <Select className='pr-3 mb-0'
+                                    <Select className='pr-md-3 mb-0'
                                             options={options}
                                             isClearable
                                             isSearchable
@@ -167,7 +167,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
 
                             <Button
                                 variant="primary"
-                                className='px-4 py-1 mr-3 float-right mt-3'
+                                className='px-4 py-1 mr-md-3 float-right mt-3'
                                 type="submit">Update
                             </Button>
                         </Form>

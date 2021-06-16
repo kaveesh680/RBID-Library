@@ -42,7 +42,7 @@ const Authors:React.FC<AuthorsProps> = (props) => {
     }
 
     return(
-        <Col xs={12} md={6} className='mt-0 pt-0'>
+        <Col xs={12} md={6} className='mt-3 pt-0 mt-md-0'>
             <Container fluid className='authors'>
                 <AuthorTitle />
                 <AuthorsList
