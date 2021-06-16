@@ -105,7 +105,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
 
     return(
         <Row className='mt-5'>
-            <Col md={9} className='px-4 book-form'>
+            <Col xs={12} xl={9} className='px-4 book-form'>
                 <Row className='mb-3'>
                     <Col xs={10}>
                         <h3>Update Book</h3>
@@ -128,7 +128,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                                     onChange = {(e:React.ChangeEvent<HTMLInputElement>) =>
                                         handleNewBookNameChange(e.target.value)}/>
                                 <FormControl.Feedback type="invalid">
-                                    <p className="font-weight-bold">Please enter book title</p>
+                                    <p className="font-weight-bold validation">Please enter book title</p>
                                 </FormControl.Feedback>
                             </Form.Group>
                             <Form.Group className="mb-3 pr-md-3">
@@ -143,7 +143,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                                         handleOnIsbnChange(e.target.value)}
                                 />
                                 <FormControl.Feedback type="invalid">
-                                    <p className="font-weight-bold">Please enter isbn</p>
+                                    <p className="font-weight-bold validation">Please enter isbn</p>
                                 </FormControl.Feedback>
                             </Form.Group>
                             <Row>
@@ -161,7 +161,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                                             onChange={(option:ValueType<ILabelOption, false>) =>
                                                 handleOnAuthorChange(option)}/>
                                     {selectorBorderColor === '#f80046' &&
-                                    <small className="text-danger font-weight-bold">Please select author</small>}
+                                    <small className="text-danger font-weight-bold validation">Please select author</small>}
                                 </Col>
                             </Row>
 

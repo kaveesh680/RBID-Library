@@ -47,7 +47,7 @@ const UpdateAuthor:React.FC<UpdateAuthorProps> = (props) => {
 
     return(
         <Row className='mt-5'>
-            <Col md={9} className='px-4 author-form'>
+            <Col xs={12} xl={9} className='px-4 author-form'>
                 <Row className='mb-3'>
                     <Col xs={10}>
                         <h3>Update Author</h3>
@@ -71,7 +71,7 @@ const UpdateAuthor:React.FC<UpdateAuthorProps> = (props) => {
                                               onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
                                                   handleNewAuthorNameChange(e.target.value)}/>
                                 <FormControl.Feedback type="invalid">
-                                    <p className="font-weight-bold">Please enter author name</p>
+                                    <p className="font-weight-bold validation">Please enter author name</p>
                                 </FormControl.Feedback>
                             </Form.Group>
                             <Button className='px-4 py-1 mr-md-3 float-right'

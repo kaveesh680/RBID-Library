@@ -83,7 +83,45 @@ $layout-break-point-xs:576px;
 @media (max-width: 480px) {
   .authors, .books{
     font-size: 0.7em;
+
+    h2{
+      font-size: 3.5em;
+    }
+
+    ul{
+      li{
+        font-size: 2.5em;
+      }
+    }
+
+    .form-label{
+      font-size: 1.5em;
+    }
+
+    .author-form, .book-form{
+
+      .validation{
+        font-size: 1.7em;
+      }
+
+      .validation-small{
+        font-size: 1.5em;
+      }
+
+      h3{
+        font-size: 2em;
+      }
+    }
+
+    .empty-label{
+      font-size: 1.5em;
+    }
+
+    .add{
+      font-size: 1.5em;
+    }
   }
+
   .Toastify__toast-container{
     .Toastify__toast{
       width: 80%;

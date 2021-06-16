@@ -9,7 +9,7 @@ type AddAuthorProps = {
 const AddAuthor:React.FC<AddAuthorProps> = (props) => {
     return(
         <Row>
-            <Col className='px-4' onClick={props.onAddClick}>
+            <Col className='px-4 add' onClick={props.onAddClick}>
                 <p>
                     <Plus className='mr-2' size={25} color="#144500"/>
                         Add Author
