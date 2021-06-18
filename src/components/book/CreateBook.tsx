@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
 import Select, {ValueType} from 'react-select';
@@ -17,6 +17,7 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
 
     const {onFormClose, authors, onBookAdded} = props;
 
+    const [selectOptions, setSelectOptions] = useState<ILabelOption[]>([]);
     const [bookName, setBookName] = useState<string | null>(null);
     const [author, setAuthor] = useState<IAuthor | null>(null);
     const [isbn, setIsbn] = useState<string | null>(null);
@@ -86,15 +87,18 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
     }
 
 
-    let selectOptions;
-    if(authors){
-        selectOptions = authors.map(author => {
-            return {
-                id: author.id,
-                label: author.name
-            };
-        });
-    }
+    useEffect(() => {
+
+        if (authors) {
+            const options: ILabelOption[] = authors.map(author => {
+                return {
+                    id: author.id,
+                    label: author.name
+                };
+            });
+            setSelectOptions(options);
+        }
+    }, [authors]);
 
     return(
         <Row className='mt-5'>

@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {IAuthor, IBook, IBookDetails, ILabelOption} from "../../types/LibraryTypes";
 import Select, {ValueType} from "react-select";
@@ -19,6 +19,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
 
     const {onFormClose, authors, onBookUpdate, id, bookDetails} = props;
 
+    const [selectOptions, setSelectOptions] = useState<ILabelOption[]>([]);
     const [newBookName, setNewBookName] = useState<string | null>(bookDetails.name);
     const [newAuthor, setNewAuthor] = useState<IAuthor | null>(bookDetails.author);
     const [newIsbn, setNewIsbn] = useState<string | null>(bookDetails.isbn);
@@ -92,16 +93,20 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
         notify();
     }
 
+    useEffect(() => {
 
-    let options;
-    if(authors){
-        options = authors.map(author => {
-            return {
-                id: author.id,
-                label: author.name
-            };
-        });
-    }
+        if (authors) {
+            const options: ILabelOption[] = authors.map(author => {
+                return {
+                    id: author.id,
+                    label: author.name
+                };
+            });
+            setSelectOptions(options);
+        }
+    }, [authors]);
+
+
 
     return(
         <Row className='mt-5'>
@@ -150,7 +155,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                                 <Col xs={12}>
                                     <Form.Label className='pl-1'>Author</Form.Label>
                                     <Select className='pr-md-3 mb-0'
-                                            options={options}
+                                            options={selectOptions}
                                             isClearable
                                             isSearchable
                                             defaultValue={{
