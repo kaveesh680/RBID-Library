@@ -5,6 +5,7 @@ import Select, {ValueType} from "react-select";
 import {XCircle} from "react-feather";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CurrencyInput from "react-currency-input-field";
 
 
 type UpdateBookProps = {
@@ -59,17 +60,22 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
         }
     }
 
-    const handleOnIsbnChange = (isbn: string) => {
-        setNewIsbn(isbn);
+    const handleOnIsbnChange = (isbn: string | undefined) => {
+        if(isbn !== undefined){
+            setNewIsbn(isbn);
+        }
     }
 
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
 
         (newAuthor === null) ? setSelectorBorderColor('#f80046') : setSelectorBorderColor('#6AB867');
-        if(!newBookName || !newIsbn || newBookName === '' || newIsbn === '' || !newAuthor){
+        if(!newBookName || !newIsbn || newBookName === '' || !newAuthor){
             setIsFormValidate(true);
             setIsSelectorValidate(true);
+            return;
+        }
+        if(newBookName === bookDetails.name && newIsbn === bookDetails.isbn && newAuthor ===bookDetails.author){
             return;
         }
 
@@ -138,14 +144,26 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) => {
                             </Form.Group>
                             <Form.Group className="mb-3 pr-md-3">
                                 <Form.Label className='pl-1'>ISBN</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    required
-                                    value={newIsbn ? newIsbn : ''}
-                                    spellCheck="false"
-                                    autoComplete="off"
-                                    onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
-                                        handleOnIsbnChange(e.target.value)}
+                                {/*<Form.Control*/}
+                                {/*    type="text"*/}
+                                {/*    required*/}
+                                {/*    value={newIsbn ? newIsbn : ''}*/}
+                                {/*    spellCheck="false"*/}
+                                {/*    autoComplete="off"*/}
+                                {/*    onChange={(e:React.ChangeEvent<HTMLInputElement>) =>*/}
+                                {/*        handleOnIsbnChange(e.target.value)}*/}
+                                {/*/>*/}
+                                <CurrencyInput className='form-control'
+                                               id="input-example"
+                                               name="input-name"
+                                               required
+                                               decimalSeparator="."
+                                               autoComplete="none"
+                                               defaultValue={newIsbn ? newIsbn : ''}
+                                               decimalScale={2}
+                                               intlConfig={{ locale: 'en-US', currency: 'USD' }}
+                                               decimalsLimit={2}
+                                               onValueChange={(value: string | undefined) => handleOnIsbnChange(value)}
                                 />
                                 <FormControl.Feedback type="invalid">
                                     <p className="font-weight-bold validation">Please enter isbn</p>

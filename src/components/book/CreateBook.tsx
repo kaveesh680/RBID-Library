@@ -6,6 +6,7 @@ import {IAuthor, IBook, ILabelOption} from "../../types/LibraryTypes";
 import { v4 as uuid4 } from 'uuid';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CurrencyInput from 'react-currency-input-field';
 
 type CreateBookProps = {
     onFormClose:() => void
@@ -57,14 +58,16 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
         }
     }
 
-    const handleOnIsbnChange = (isbn: string) => {
-        setIsbn(isbn);
+    const handleOnIsbnChange = (isbn: string | undefined) => {
+        if(isbn !== undefined){
+            setIsbn(isbn);
+        }
     }
 
     const handleSubmit = (e:FormEvent) => {
         e.preventDefault();
         (author === null) ? setSelectorBorderColor('#f80046') : setSelectorBorderColor('#6AB867');
-        if(!bookName || !isbn || bookName === '' || isbn === '' || !author){
+        if(!bookName || !isbn || bookName === '' || !author){
             setIsFormValidate(true);
             setIsSelectorValidate(true);
             return;
@@ -88,7 +91,6 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
 
 
     useEffect(() => {
-
         if (authors) {
             const options: ILabelOption[] = authors.map(author => {
                 return {
@@ -130,14 +132,25 @@ const CreateBook:React.FC<CreateBookProps> = (props) => {
                             </Form.Group>
                             <Form.Group className="mb-3 pr-md-3">
                                 <Form.Label className='pl-1'>ISBN</Form.Label>
-                                <Form.Control
-                                    type="text"
+                                {/*<Form.Control*/}
+                                {/*    type="number"*/}
+                                {/*    required*/}
+                                {/*    value={isbn ? isbn : ''}*/}
+                                {/*    spellCheck="false"*/}
+                                {/*    autoComplete="off"*/}
+                                {/*    onChange={(e:React.ChangeEvent<HTMLInputElement>) =>*/}
+                                {/*        handleOnIsbnChange(e.target.value)}*/}
+                                {/*/>*/}
+                                <CurrencyInput className='form-control'
+                                    id="input-example"
+                                    name="input-name"
                                     required
-                                    value={isbn ? isbn : ''}
-                                    spellCheck="false"
-                                    autoComplete="off"
-                                    onChange={(e:React.ChangeEvent<HTMLInputElement>) =>
-                                        handleOnIsbnChange(e.target.value)}
+                                    decimalSeparator="."
+                                    autoComplete="none"
+                                    decimalScale={2}
+                                    intlConfig={{ locale: 'en-US', currency: 'USD' }}
+                                    decimalsLimit={2}
+                                    onValueChange={(value: string | undefined) => handleOnIsbnChange(value)}
                                 />
                                 <FormControl.Feedback type="invalid">
                                     <p className="font-weight-bold validation">Please enter isbn</p>
