@@ -5,6 +5,7 @@ import Authors from "./components/Authors";
 import Books from "./components/Books";
 import {Container, Row} from "react-bootstrap";
 import {IAuthor, IBook} from "./types/LibraryTypes";
+import Footer from "./components/Footer";
 
 const ClientApp:React.FC = () => {
 
@@ -116,6 +117,7 @@ const ClientApp:React.FC = () => {
                     />
                 </Row>
             </Container>
+            <Footer/>
         </>
     )
 }
