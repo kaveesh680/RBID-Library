@@ -6,11 +6,6 @@ const Welcome:React.FC = () => {
     return(
         <Container fluid={true} className='welcome'>
             <Row>
-                <Col xs={12} className='mt-2 mb-1 text-center'>
-                    <h1>My Library</h1>
-                </Col>
-            </Row>
-            <Row>
                 <Col xs={12} className='mx-0 px-0'>
                     <Image src={libraryImg} placeholder="Library"/>
                 </Col>
