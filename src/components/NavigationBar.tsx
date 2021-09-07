@@ -14,6 +14,7 @@ const NavigationBar:React.FC = () =>{
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav>
                         <Nav.Link onClick={() => history.push('/about')}>About</Nav.Link>
+                        {/*<NavLink to="/about" >About</NavLink>*/}
                         <Nav.Link onClick={() => history.push('/contact')}>Contact</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

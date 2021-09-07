@@ -8,7 +8,7 @@ import {IAuthor, IBook} from "../types/LibraryTypes";
 import UpdateAuthor from "./validation/UpdateAuthor";
 
 type AuthorsProps = {
-    authors:IAuthor[] | null
+    authors:IAuthor[]
     books:IBook[] | null
     onAuthorAdded:(author:IAuthor) => void
     onAuthorDelete:(id:string) => void

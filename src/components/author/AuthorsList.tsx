@@ -4,7 +4,7 @@ import {Col, Row} from "react-bootstrap";
 import {IAuthor, IBook} from "../../types/LibraryTypes";
 
 type AuthorsListProps = {
-    authors:IAuthor[] | null
+    authors:IAuthor[]
     books:IBook[] | null
     onAuthorDelete:(id:string) => void
     onAuthorUpdate:(author:IAuthor) => void
